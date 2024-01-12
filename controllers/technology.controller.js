@@ -14,7 +14,7 @@ exports.createTechnology = async (req, res) => {
     try {
       await technologySchema.validate(req.body);
       const user = await technologyService.createTechnology(req.body);
-      res.json({ data: user, status: "created" });
+      res.json({ data: user, status: "technology created" });
     } catch (error) {
       res.status(500).json({ error: error.message });
     }
