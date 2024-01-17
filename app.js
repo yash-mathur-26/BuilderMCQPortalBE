@@ -7,6 +7,7 @@ db.sequelize.sync();
 
 const technologyRoute = require("./routes/technology.routes");
 const userRoute = require("./routes/user.routes");
+const questionsRoute = require("./routes/question.routes");
 
 // setting middleware
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -15,6 +16,7 @@ app.use(bodyParser.json());
 //configure routes
 app.use("/api/technologies", technologyRoute);
 app.use("/api/users", userRoute);
+app.use("/api/questions", questionsRoute);
 
 // setting error path
 app.use((req, res, next) => {

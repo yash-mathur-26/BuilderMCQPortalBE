@@ -10,3 +10,7 @@ exports.findUser = async (body) => {
     where: { email: body.email, is_active: "true" },
   });
 };
+
+exports.getUsers = async () => {
+  return await User.findAll({ is_active: "true" });
+};
