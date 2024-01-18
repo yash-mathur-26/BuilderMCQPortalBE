@@ -20,3 +20,21 @@ exports.getQuestionsController = async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 };
+
+exports.generateTestController = async (req, res) => {
+  try {
+    const questions = await questionService.getRandomQuestions();
+    res.json({ data: questions, status: "OK" });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
+exports.deleteQuestionController = async (req, res) => {
+  try {
+    const question = await questionService.deleteQuestion(req.body);
+    res.json({ status: "Deleted" });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};

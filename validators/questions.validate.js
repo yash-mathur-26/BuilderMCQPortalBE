@@ -5,4 +5,5 @@ exports.questionsSchema = yup.object().shape({
   technology: yup.number().required(),
   options: yup.string().required(),
   answer: yup.string().required(),
+  codeSnippet: yup.string(),
 });
