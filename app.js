@@ -1,5 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const cors = require("cors");
 const app = express();
 
 const db = require("./models");
@@ -9,9 +10,15 @@ const technologyRoute = require("./routes/technology.routes");
 const userRoute = require("./routes/user.routes");
 const questionsRoute = require("./routes/question.routes");
 
+//Configure CORS options
+var corsOptions = {
+  origin: "http://localhost:3000",
+};
+
 // setting middleware
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(cors(corsOptions));
 
 //configure routes
 app.use("/api/technologies", technologyRoute);
