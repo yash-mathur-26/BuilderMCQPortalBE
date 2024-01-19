@@ -1,12 +1,12 @@
 const express = require("express");
 
-const {} = require("../controllers/technology.controller");
 const { isAuthorize } = require("../middleware/auth");
 const {
   createQuestionsController,
   getQuestionsController,
   generateTestController,
   deleteQuestionController,
+  updateQuestionController,
 } = require("../controllers/questions.controller");
 
 const router = express.Router();
@@ -14,6 +14,8 @@ const router = express.Router();
 router
   .route("/")
   .get(isAuthorize, getQuestionsController)
-  .post(isAuthorize, createQuestionsController).patch(isAuthorize, deleteQuestionController);
+  .post(isAuthorize, createQuestionsController)
+  .patch(isAuthorize, deleteQuestionController)
+  .put(isAuthorize, updateQuestionController);
 router.route("/generate-test").get(isAuthorize, generateTestController);
 module.exports = router;

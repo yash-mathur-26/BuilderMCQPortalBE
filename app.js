@@ -9,6 +9,7 @@ db.sequelize.sync();
 const technologyRoute = require("./routes/technology.routes");
 const userRoute = require("./routes/user.routes");
 const questionsRoute = require("./routes/question.routes");
+const globalConfigRoute = require("./routes/config.routes");
 
 //Configure CORS options
 var corsOptions = {
@@ -24,6 +25,7 @@ app.use(cors(corsOptions));
 app.use("/api/technologies", technologyRoute);
 app.use("/api/users", userRoute);
 app.use("/api/questions", questionsRoute);
+app.use("/api/global-config", globalConfigRoute);
 
 // setting error path
 app.use((req, res, next) => {

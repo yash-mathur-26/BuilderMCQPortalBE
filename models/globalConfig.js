@@ -1,7 +1,7 @@
 "use strict";
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
-  class Technology extends Model {
+  class GlobalConfigs extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -11,17 +11,17 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   }
-  Technology.init(
+  GlobalConfigs.init(
     {
-      name: DataTypes.STRING,
-      duration: DataTypes.INTEGER,
       noOfQuestions: DataTypes.INTEGER,
+      duration: DataTypes.INTEGER,
       cutOff: DataTypes.INTEGER,
+      isActive: { type: DataTypes.BOOLEAN, defaultValue: true },
     },
     {
       sequelize,
-      modelName: "Technology",
+      modelName: "GlobalConfigs",
     }
   );
-  return Technology;
+  return GlobalConfigs;
 };
