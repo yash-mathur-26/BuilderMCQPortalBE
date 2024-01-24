@@ -1,14 +1,17 @@
 const db = require("../models");
-const Questions = db.Questions;
-const Technology = db.Technology;
+const Questions = db.questions;
 const GlobalConfig = db.GlobalConfigs;
+const Technology = db.technology;
 
 exports.createQuestions = async (body) => {
   return await Questions.create(body);
 };
 
 exports.getQuestions = async () => {
-  return await Questions.findAll({ where: { isActive: true } });
+  const questions =  await Questions.findAll({
+    // include: { model: Technology },
+    where: { isActive: true },
+  });
 };
 
 exports.getRandomQuestions = async (id) => {
