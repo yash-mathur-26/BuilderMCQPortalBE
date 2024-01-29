@@ -8,10 +8,18 @@ exports.createQuestions = async (body) => {
 };
 
 exports.getQuestions = async () => {
-  const questions =  await Questions.findAll({
-    // include: { model: Technology },
+  const questions = await Questions.findAll({
     where: { isActive: true },
   });
+  const finalReposne = questions.map(async (question) => {
+    const tech = await Technology.findByPk(question.dataValues.technologyId);
+    question.dataValues.technology = tech;
+    delete question.technologyId;
+    return question;
+  });
+
+  const finalQuestions = await Promise.all(finalReposne);
+  return finalQuestions;
 };
 
 exports.getRandomQuestions = async (id) => {

@@ -11,6 +11,7 @@ const userRoute = require("./routes/user.routes");
 const questionsRoute = require("./routes/question.routes");
 const globalConfigRoute = require("./routes/config.routes");
 const testRoute = require("./routes/test.routes");
+const examRoute = require("./routes/exam.route");
 
 //Configure CORS options
 var corsOptions = {
@@ -28,6 +29,7 @@ app.use("/api/users", userRoute);
 app.use("/api/questions", questionsRoute);
 app.use("/api/global-config", globalConfigRoute);
 app.use("/api/tests", testRoute);
+app.use("/api/exam", examRoute);
 
 // setting error path
 app.use((req, res, next) => {

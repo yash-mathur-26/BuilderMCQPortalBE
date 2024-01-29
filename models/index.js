@@ -49,8 +49,6 @@ db.Sequelize = Sequelize;
 
 db.technology = require("./technology")(sequelize, Sequelize.DataTypes);
 db.questions = require("./questions")(sequelize, Sequelize.DataTypes);
-
-db.questions.hasOne(db.technology, { foreignKey: "technologyId" });
-db.technology.belongsTo(db.questions);
+db.examStats = require("./examStats")(sequelize, Sequelize.DataTypes);
 
 module.exports = db;
