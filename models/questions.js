@@ -18,6 +18,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       options: DataTypes.STRING,
       answer: DataTypes.STRING,
+      optionType: DataTypes.STRING,
       codeSnippet: DataTypes.STRING,
       isActive: DataTypes.BOOLEAN,
     },
