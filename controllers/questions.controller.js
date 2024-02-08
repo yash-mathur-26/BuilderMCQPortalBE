@@ -14,15 +14,9 @@ exports.createQuestionsController = async (req, res) => {
 
 exports.getQuestionsController = async (req, res) => {
   try {
-    console.log("REQ ===> ", req.query.hasOwnProperty("technology"));
-    let questions;
-    if (req.query.hasOwnProperty("technology")) {
-      questions = await questionService.getQuestionByTechnology(
-        req.query.technology
-      );
-    } else {
-      questions = await questionService.getQuestions();
-    }
+    const questions = req.query.hasOwnProperty("technology")
+      ? await questionService.getQuestionByTechnology(req.query.technology)
+      : await questionService.getQuestions();
     res.json({ data: questions, status: "Success" });
   } catch (error) {
     res.status(400).json({ error: error.message });
