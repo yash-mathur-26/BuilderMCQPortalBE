@@ -11,15 +11,26 @@ exports.getQuestions = async () => {
   const questions = await Questions.findAll({
     where: { isActive: true },
   });
-  const finalReposne = questions.map(async (question) => {
+  const finalResponse = questions.map(async (question) => {
     const tech = await Technology.findByPk(question.dataValues.technologyId);
     question.dataValues.technology = tech;
     delete question.technologyId;
     return question;
   });
+  return await Promise.all(finalResponse);
+};
 
-  const finalQuestions = await Promise.all(finalReposne);
-  return finalQuestions;
+exports.getQuestionByTechnology = async (technology) => {
+  const questions = await Questions.findAll({
+    where: { isActive: true, technologyId: technology },
+  });
+  const finalResponse = questions.map(async (question) => {
+    const tech = await Technology.findByPk(question.dataValues.technologyId);
+    question.dataValues.technology = tech;
+    delete question.technologyId;
+    return question;
+  });
+  return await Promise.all(finalResponse);
 };
 
 exports.getRandomQuestions = async (id) => {
