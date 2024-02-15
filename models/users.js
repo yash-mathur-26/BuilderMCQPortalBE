@@ -17,6 +17,10 @@ module.exports = (sequelize, DataTypes) => {
       email: DataTypes.STRING,
       password: DataTypes.STRING,
       is_active: { type: DataTypes.STRING, defaultValue: "true" },
+      technologyId: {
+        type: DataTypes.INTEGER,
+        references: { model: "technologies", key: "id" },
+      },
     },
     {
       sequelize,
