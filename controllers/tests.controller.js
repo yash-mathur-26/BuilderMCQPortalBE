@@ -13,7 +13,9 @@ exports.createTestController = async (req, res) => {
 
 exports.getTestController = async (req, res) => {
   try {
-    const tests = await testService.getTests();
+    const tests = req.query.hasOwnProperty("technology")
+      ? await testService.getTestByTechnology(req.query.technology)
+      : await testService.getTests();
     res.json({ data: tests, status: "success" });
   } catch (error) {
     res.status(400).json({ error: error.message });
