@@ -19,3 +19,18 @@ exports.updateExamStat = async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 };
+
+exports.getExamStats = async (req, res) => {
+  try {
+    const filter = {};
+    if (req.query.hasOwnProperty("userId")) {
+      filter.userId = req.query.userId;
+    }
+    const exams = req.query.hasOwnProperty("technology")
+      ? await examStatService.getExamByFilter(filter)
+      : await examStatService.getExamStats();
+    res.json({ data: exams, status: "success" });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};

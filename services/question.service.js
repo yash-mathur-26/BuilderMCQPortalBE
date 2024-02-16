@@ -34,13 +34,12 @@ exports.getQuestionByTechnology = async (technology) => {
 };
 
 exports.getRandomQuestions = async (id) => {
-  let technology;
-  technology = await Technology.findOne({ where: { id } });
+  let technology = await Technology.findOne({ where: { id } });
   if (!technology.noOfQuestions && !technology.duration && !technology.cutOff) {
     technology = await GlobalConfig.findOne({ where: { isActive: true } });
   }
   const questions = await Questions.findAll({
-    where: { isActive: true, technology: id },
+    where: { isActive: true, technologyId: id },
     order: db.Sequelize.literal("rand()"),
     limit: technology.noOfQuestions,
   });
