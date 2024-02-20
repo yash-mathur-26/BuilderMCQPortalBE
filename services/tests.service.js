@@ -8,20 +8,6 @@ exports.createTest = async (body) => {
   return await Tests.create(body);
 };
 
-exports.getTests = async () => {
-  const tests = await Tests.findAll({});
-  const finalResponse = tests.map(async (test) => {
-    const tech = await Technology.findByPk(test.dataValues.technology);
-    const user = await User.findByPk(test.dataValues.userId);
-    delete test.dataValues.technology;
-    delete test.dataValues.userId;
-    test.dataValues.user = user.dataValues;
-    test.dataValues.technology = tech.dataValues;
-    return test;
-  });
-  return await Promise.all(finalResponse);
-};
-
 exports.getTestByFilter = async (filter) => {
   const tests = await Tests.findAll({
     where: {
@@ -29,7 +15,6 @@ exports.getTestByFilter = async (filter) => {
       ...filter,
     },
   });
-  console.log("TESTS =====> ", tests);
   if (tests) {
     const finalResponse = Promise.all(
       tests.map(async (test) => {
@@ -43,11 +28,9 @@ exports.getTestByFilter = async (filter) => {
         if (tech) {
           test.dataValues.technology = tech?.dataValues;
         }
-        console.log("AFTER MODIFICATION =====>", test);
         return test;
       })
     );
-    console.log("FINAL REPOSNE =====> ", finalResponse);
     return finalResponse;
   }
   return [];
