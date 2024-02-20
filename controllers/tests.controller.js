@@ -20,9 +20,7 @@ exports.getTestController = async (req, res) => {
     if (req.query.hasOwnProperty("userId")) {
       filter.userId = req.query.userId;
     }
-    const tests = req.query.hasOwnProperty("technology")
-      ? await testService.getTestByFilter(filter)
-      : await testService.getTests();
+    const tests = await testService.getTestByFilter(filter);
     res.json({ data: tests, status: "success" });
   } catch (error) {
     res.status(400).json({ error: error.message });

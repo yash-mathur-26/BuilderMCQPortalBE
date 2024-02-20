@@ -23,17 +23,32 @@ exports.getTests = async () => {
 };
 
 exports.getTestByFilter = async (filter) => {
-  const test = await Tests.findOne({ where: { isActive: true, ...filter } });
-  if (test) {
-    const tech = await Technology.findByPk(test?.dataValues?.technology);
-    const user = await User.findByPk(test?.dataValues?.userId);
-    delete test?.dataValues?.technology;
-    delete test?.dataValues?.userId;
-    if (user && tech) {
-      test.dataValues.user = user?.dataValues;
-      test.dataValues.technology = tech?.dataValues;
-    }
-    return test.dataValues;
+  const tests = await Tests.findAll({
+    where: {
+      isActive: true,
+      ...filter,
+    },
+  });
+  console.log("TESTS =====> ", tests);
+  if (tests) {
+    const finalResponse = Promise.all(
+      tests.map(async (test) => {
+        const tech = await Technology.findByPk(test?.dataValues?.technology);
+        const user = await User.findByPk(test?.dataValues?.userId);
+        delete test?.dataValues?.technology;
+        delete test?.dataValues?.userId;
+        if (user) {
+          test.dataValues.user = user?.dataValues;
+        }
+        if (tech) {
+          test.dataValues.technology = tech?.dataValues;
+        }
+        console.log("AFTER MODIFICATION =====>", test);
+        return test;
+      })
+    );
+    console.log("FINAL REPOSNE =====> ", finalResponse);
+    return finalResponse;
   }
   return [];
 };
