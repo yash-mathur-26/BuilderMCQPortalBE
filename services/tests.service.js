@@ -16,7 +16,7 @@ exports.getTestByFilter = async (filter) => {
     },
   });
   if (tests) {
-    const finalResponse = Promise.all(
+    return Promise.all(
       tests.map(async (test) => {
         const tech = await Technology.findByPk(test?.dataValues?.technology);
         const user = await User.findByPk(test?.dataValues?.userId);
@@ -31,7 +31,6 @@ exports.getTestByFilter = async (filter) => {
         return test;
       })
     );
-    return finalResponse;
   }
   return [];
 };

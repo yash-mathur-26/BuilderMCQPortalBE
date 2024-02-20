@@ -20,6 +20,9 @@ exports.getTestController = async (req, res) => {
     if (req.query.hasOwnProperty("userId")) {
       filter.userId = req.query.userId;
     }
+    if (req.query.hasOwnProperty("isCompleted")) {
+      filter.isCompleted = req.query.isCompleted === "true";
+    }
     const tests = await testService.getTestByFilter(filter);
     res.json({ data: tests, status: "success" });
   } catch (error) {
@@ -29,12 +32,6 @@ exports.getTestController = async (req, res) => {
 
 exports.updateTestController = async (req, res) => {
   try {
-    console.log(
-      "ID =====> ",
-      req.query.id,
-      " ======== BODY ======> ",
-      req.body
-    );
     await testService.updateTestById(req.query.id, req.body);
     res.json({ status: "Updated" });
   } catch (error) {
