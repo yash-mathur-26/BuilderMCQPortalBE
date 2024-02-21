@@ -32,8 +32,8 @@ exports.getTestController = async (req, res) => {
 
 exports.updateTestController = async (req, res) => {
   try {
-    await testService.updateTestById(req.query.id, req.body);
-    res.json({ status: "Updated" });
+    const test = await testService.updateTestById(req.query.id, req.body);
+    res.json({ data: test, status: "Updated" });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }

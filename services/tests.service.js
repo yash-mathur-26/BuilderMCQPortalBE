@@ -36,7 +36,7 @@ exports.getTestByFilter = async (filter) => {
 };
 
 exports.updateTestById = async (testId, body) => {
-  return await Tests.update(
+  await Tests.update(
     {
       userId: body?.userId,
       technology: body?.technology,
@@ -44,7 +44,10 @@ exports.updateTestById = async (testId, body) => {
       startDate: body?.startDate,
       endDate: body?.endDate,
       duration: body?.duration,
+      isCompleted: body?.isCompleted,
     },
     { where: { id: testId } }
   );
+  const test = await Tests.findByPk(testId);
+  return test.dataValues;
 };
